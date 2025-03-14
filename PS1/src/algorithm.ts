@@ -46,8 +46,25 @@ export function toBucketSets(buckets: BucketMap): Array<Set<Flashcard>> {
 export function getBucketRange(
   buckets: Array<Set<Flashcard>>
 ): { minBucket: number; maxBucket: number } | undefined {
-  // TODO: Implement this function
-  throw new Error("Implement me!");
+  let minBucket = undefined, maxBucket = undefined;
+
+  for (let i = 0; i < buckets.length; i++) {
+    if (!buckets[i] || buckets[i]!.size == 0) continue;
+
+    minBucket = i;
+    break;
+  }
+
+  for (let i = buckets.length - 1; i > -1; i--) {
+    if (!buckets[i] || buckets[i]!.size == 0) continue;
+
+    maxBucket = i;
+    break;
+  }
+
+  if (minBucket === undefined) return undefined;
+
+  return { minBucket: minBucket, maxBucket: maxBucket! };
 }
 
 /**
