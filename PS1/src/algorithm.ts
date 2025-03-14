@@ -19,8 +19,20 @@ import { Flashcard, AnswerDifficulty, BucketMap } from "./flashcards";
  * @spec.requires buckets is a valid representation of flashcard buckets.
  */
 export function toBucketSets(buckets: BucketMap): Array<Set<Flashcard>> {
-  // TODO: Implement this function
-  throw new Error("Implement me!");
+  // Find the highest bucket number to determine array size
+  const maxBucket = Math.max(...buckets.keys(), 0);
+   
+  // Create an array filled with empty Sets
+  const result: Array<Set<Flashcard>> = Array(maxBucket + 1)
+    .fill(null)
+    .map(() => new Set<Flashcard>());
+  
+  // Fill in the Sets with data from the Map
+  for (const [bucketNumber, flashcards] of buckets.entries()) {
+    result[bucketNumber] = new Set(flashcards);
+  }
+  
+  return result;
 }
 
 /**
